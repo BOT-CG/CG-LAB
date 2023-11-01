@@ -9,6 +9,8 @@
 
 2. CMakeLists.txt：这是一个CMake文件，用于配置和生成项目。
 
+
+
 ## Get Started
 
 先将项目文件下载到本地
@@ -40,7 +42,8 @@ set(CMAKE_PREFIX_PATH ${VCPKG_ROOT}/installed/x64-mingw-static/share CACHE STRIN
 ```
 
 在vscode中选择mingw编译器，点击状态栏的齿轮按钮build整个项目。
-
+### 一步之遥
+现在直接build会报一个assimp中findpackge stb找不到的错误，去vcpkg/installed/x64-mingw-static/share/assimp/assimpConfig.cmake中把stb相关那一行删掉，就可以build这个项目了。
 ### 运行项目
 
 1.可以点击cmake工具的的文件名，然后点击状态栏的三角形按钮运行。  
@@ -54,5 +57,5 @@ cd path/to/build/bin/basic/1.1xxxx
 ./1.1xxxx.exe
 ```
 
-
+> src/utils/中的 shader、mesh、model、camera来自[JoeyDeVries的LearnOpenGL](https://github.com/JoeyDeVries/LearnOpenGL)，该项目是非常好的学习资料。
 
