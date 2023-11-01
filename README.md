@@ -42,7 +42,8 @@ set(CMAKE_PREFIX_PATH ${VCPKG_ROOT}/installed/x64-mingw-static/share CACHE STRIN
 ```
 
 在vscode中选择mingw编译器，点击状态栏的齿轮按钮build整个项目。
-
+### 一步之遥
+现在直接build会报一个assimp中findpackge stb找不到的错误，去vcpkg/installed/x64-mingw-static/share/assimp/assimpConfig.cmake中把stb相关那一行删掉，就可以build这个项目了。
 ### 运行项目
 
 1.可以点击cmake工具的的文件名，然后点击状态栏的三角形按钮运行。  
