@@ -59,8 +59,7 @@ void main()
 {
     vec3 sampledNormal = Normal;
     if(material.sampleNormalMap){
-        sampledNormal = texture(material.normalMap, TexCoords).rgb;
-        sampledNormal = normalize(sampledNormal * 2.0 - 1.0);
+        //code to implement normal mapping
     }
     // Use this normal for lighting calculations
     vec3 norm = normalize(sampledNormal);

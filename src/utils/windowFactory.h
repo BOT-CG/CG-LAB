@@ -2,7 +2,11 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <functional>
-#include "quaternionCamera.h"
+#include "ourcamera.h"
+
+// #include "quaternionCamera.h"
+// use quaternion Camera if you want to view how to solve gimbal lock
+
 class GLFWWindowFactory
 {
 public:

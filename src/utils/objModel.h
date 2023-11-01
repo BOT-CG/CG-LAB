@@ -28,7 +28,6 @@ struct Material {
     glm::vec3 diffuse;
     glm::vec3 specular;
     GLuint texture;
-    GLuint normalMap;
     GLuint specularMap;
     float shininess;
 
@@ -73,15 +72,14 @@ private:
     // Loads an OBJ model from file and stores the resulting meshes in the meshes vector.
     void loadModel(string const &path);
     void setupBuffer();
-    // Helper functions for parsing vertices, normals, texture coordinates, and faces from the OBJ file
+    // Helper functions for parsing vertices, texture coordinates, and faces from the OBJ file
     void parseVertex(const vector<string> &tokens);
-    void parseNormal(const vector<string> &tokens);
     void parseTexCoord(const vector<string> &tokens);
     void parseFace(const vector<string> &tokens);
     void processFaceVertex(const string& token, 
                        const vector<glm::vec3>& tempPositions, 
                        const vector<glm::vec2>& tempTexCoords, 
-                       const vector<glm::vec3>& tempNormals, 
+                       const vector<glm::vec3>& tempNormals,
                        vector<Vertex>& vertices) ;
     // Helper function to split a string by whitespace
     vector<string> split(const string &s, char delimiter);

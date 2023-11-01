@@ -124,12 +124,7 @@ void Model::Draw(Shader &shader) {
 
     // Set the normalMap
     shader.setBool("material.sampleNormalMap",false);
-    if(material.normalMap != 0){
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, material.normalMap);
-        shader.setInt("material.normalMap", 1);
-        shader.setBool("material.sampleNormalMap", true);
-    }
+    // code to implement normal map
     
     // Set the specularMap
     if(material.specularMap != 0){
@@ -181,14 +176,6 @@ void Model::loadMaterial(const std::string& mtlPath, Material& material) {
             texturePath = folderPath + "/" + texturePath;
             // Load the texture using stb_image
             material.texture = loadTexture(texturePath);
-        }
-        else if (token == "map_Bump"){
-            std::string texturePath;
-            ss >> texturePath;
-
-            texturePath = folderPath + "/" + texturePath;
-            // Load the texture using stb_image
-            material.normalMap = loadTexture(texturePath);
         }
         else if (token == "map_Ks") {
             std::string texturePath;
