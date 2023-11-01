@@ -9,6 +9,8 @@
 
 2. CMakeLists.txt：这是一个CMake文件，用于配置和生成项目。
 
+> src/utils/中的 shader、mesh、model、camera来自[JoeyDeVries的LearnOpenGL](https://github.com/JoeyDeVries/LearnOpenGL)，该项目是非常好的参考借鉴学习资料，windows环境可以运行项目提供的build_windows.sh，wsl或者linux环境根据项目提供的指示运行。
+
 ## Get Started
 
 先将项目文件下载到本地
