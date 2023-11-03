@@ -1,5 +1,5 @@
 
-#include "ourModel.h"
+#include "ourmodel.h"
 #include <iostream>
 #include "yaml-cpp/yaml.h"
 RectangleModel::RectangleModel(GLFWWindowFactory* window):window(window){

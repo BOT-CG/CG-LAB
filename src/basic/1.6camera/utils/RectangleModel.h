@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
-#include "Shader.h"
+#include "shader.h"
 #include <vector>
 #include <chrono>
 #include <cmath>
