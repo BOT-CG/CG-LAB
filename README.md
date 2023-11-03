@@ -24,12 +24,12 @@ cd path/to/vcpkg
 ```
 执行以下命令安装依赖库
 ```bash
-vcpkg install glfw3:x64-mingw-static
-vcpkg install glm:x64-mingw-static
-vcpkg install assimp:x64-mingw-static
-vcpkg install glad:x64-mingw-static
-vcpkg install stb:x64-mingw-static
-vcpkg install yaml-cpp:x64-mingw-static
+./vcpkg install glfw3:x64-mingw-static
+./vcpkg install glm:x64-mingw-static
+./vcpkg install assimp:x64-mingw-static
+./vcpkg install glad:x64-mingw-static
+./vcpkg install stb:x64-mingw-static
+./vcpkg install yaml-cpp:x64-mingw-static
 ``` 
 
 将CMakeLists.txt文件中vcpkg的配置路径修改为自己的路径
