@@ -9,7 +9,7 @@ tags: ["实验准备" ]
 
 When setting up your development environment, please be aware of the following issues:
 
-1. **UCRT Version of MinGW**: The UCRT version of MinGW-w64 may cause compatibility issues. We recommend using the standard MinGW-w64 version without the `ucrt` flag. One can follow our **installation guide in the same folder** to avoid this issue.
+1. **UCRT Version of MinGW**: The UCRT version of MinGW-w64 may cause compatibility issues. We recommend using the standard MinGW-w64 version without the `ucrt` flag. One can follow our [**installation guide in the same folder**](https://github.com/BOT-CG/CG-LAB/blob/main/%E5%AE%9E%E9%AA%8C%E6%8C%87%E5%AF%BC/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/mingwInstallationGuide.md) to avoid this issue.
 
 2. **CMake 3.28 Release Candidate**: The release candidate for CMake 3.28 has [*known issues with the zlib package*](https://discourse.cmake.org/t/3-28-0-rc-regression-vcpkg-error-building-zlib-x64-windows-failed-with-build-failed/9230). It is advised to use a stable release of CMake that is confirmed to work with zlib.
 
