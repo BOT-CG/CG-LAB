@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ncs/5axis.nc</file>
+        <file>ncs/20220618.nc</file>
+        <file>ncs/banlei5.nc</file>
+        <file>ncs/banleidoublebenlai.nc</file>
+        <file>ncs/BDD.nc</file>
+        <file>ncs/multicutter.nc</file>
+        <file>ncs/pentagram.nc</file>
+        <file>ncs/saddle.nc</file>
+        <file>ncs/vase.nc</file>
+    </qresource>
+</RCC>

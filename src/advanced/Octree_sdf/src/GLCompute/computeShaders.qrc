@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>computeShaders/STL2SDF.comp</file>
+        <file>computeShaders/STL2UDF.comp</file>
+    </qresource>
+</RCC>

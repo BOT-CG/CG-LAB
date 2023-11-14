@@ -1,0 +1,30 @@
+#version 450 core
+
+layout (vertices = 3) out;
+
+in VS_OUT {
+    vec3 normal;
+    vec3 cutterPos;
+} 
+vs_in[];
+
+out HS_OUT
+{
+    vec3 normal;
+    vec3 CutterPos;
+} 
+hs_out[];
+
+void main()
+{
+    hs_out[gl_InvocationID].normal = vs_in[gl_InvocationID].normal;
+    hs_out[gl_InvocationID].CutterPos = vs_in[gl_InvocationID].cutterPos;
+
+    gl_TessLevelInner[0] = 6;
+    gl_TessLevelOuter[0] = 6;
+    gl_TessLevelOuter[1] = 6;
+    gl_TessLevelOuter[2] = 6;
+    
+    gl_out[gl_InvocationID].gl_Position	= gl_in[gl_InvocationID].gl_Position;
+
+}

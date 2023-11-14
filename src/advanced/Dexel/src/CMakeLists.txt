@@ -1,0 +1,8 @@
+add_subdirectory(app)
+add_subdirectory(FileStorage)
+add_subdirectory(GLCompute)
+add_subdirectory(milling)
+add_subdirectory(render)
+add_subdirectory(UI)
+add_subdirectory(utils)
+add_subdirectory(DexelMilling)

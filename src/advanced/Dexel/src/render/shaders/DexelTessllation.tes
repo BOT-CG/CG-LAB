@@ -1,0 +1,162 @@
+#version 450 core
+
+layout (triangles) in;
+
+in HS_OUT
+{
+    vec3 normal;
+    vec3 CutterPos;
+}
+hs_in[];
+
+
+out TES_OUT
+{
+    vec3 normal;
+} tes_out;
+
+// out vec3 tes_normal;
+
+uniform float CutterR;
+uniform int CutterType;
+#define M_P 3.14159265358979323846
+
+void main(){
+    float u = gl_TessCoord.x;
+    float v = gl_TessCoord.y;
+    float t = gl_TessCoord.z;
+    // float w = gl_TessCoord.w;
+    #define p(i)  gl_in[i].gl_Position
+    #define n(i)  hs_in[i].normal
+    #define c(i)  hs_in[i].CutterPos
+
+
+
+    //通过 gl_TessCoord和gl_in[i].gl_Position获得当前细分坐标
+    vec4 pos;
+    vec4 newPos = (1.0 - u - v) * p(0) + u * p(1) + v * p(2); 
+
+    //if(((u == 0)  && (v == 1))   || ((u == 0)  && (v == 1)) || )
+    pos = newPos;
+    if(c(0).x + c(0).y + c(0).z < -20000.0f){
+        gl_Position = pos;
+        tes_out.normal = hs_in[0].normal;
+        return ;
+    }
+    if(((u  * v <= 0.001)) ){
+        if(( u > 0.999) ){
+            pos = p(1);
+            gl_Position = pos;
+            tes_out.normal = hs_in[0].normal;
+            return ;
+        }else if(( v > 0.999)){
+            gl_Position = pos;
+            tes_out.normal = hs_in[0].normal;
+            return ;
+            pos = p(2);
+        } else if(( u < 0.001)  && (v < 0.001) ){
+            pos = p(0);
+            gl_Position = pos;
+            tes_out.normal = hs_in[0].normal;
+            return ;
+        }
+    }
+
+    // gl_Position = pos;
+    // tes_out.normal = hs_in[0].normal;
+    // return;
+
+    // pos.z = pos.z + CutterR * 0.05;
+    float Max_Z = max(p(0).z, max(p(1).z, p(2).z));
+    float Min_Z = min(p(0).z,min(p(1).z, p(2).z));
+    pos.z = Max_Z ;//+ CutterR * 0.01;
+    //计算当前细分坐标到切割球的距离
+
+
+
+    float dis;
+    float z;
+    float h;
+    // vec3 tempPoint = pos.xyz;
+    //float CutterZ = ( c(0).z +  c(1).z +  c(2).z) / (3.0f) ;
+    if(CutterType == 2){
+        for(int i = 0; i < 3; i++){
+           dis = distance(pos.xy, c(i).xy);
+           if((dis <= CutterR)){
+              h = sqrt(CutterR * CutterR - dis * dis);
+              z = c(i).z + CutterR -  h ;
+              if( z <= pos.z) {
+                  pos.z = z ;
+              }
+           }
+        }
+    }else if(CutterType == 4){
+        for(int i = 0; i < 3; i++){
+            dis = distance(pos.xy, c(i).xy);
+            if((dis <= CutterR)){
+                z = c(i).z;
+                if( z < pos.z) {
+                    pos.z = z ;
+                }
+            }
+
+        }
+    }
+
+    // gl_Position = pos;
+    // tes_out.normal = hs_in[0].normal;
+    // return;
+
+    bool isVertical = false;
+    if(length(hs_in[0].normal)>1.5 && length(hs_in[0].normal) < 2.5){
+        float dis1 = distance(pos.xy, c(0).xy);
+        float dis2 = distance(pos.xy, c(1).xy);
+        float dis3 = distance(pos.xy, c(2).xy);
+        int CutterIndex = 0;
+
+        if(dis1 < dis2){
+            CutterIndex = (dis1 < dis3) ? 0 : 2;
+        }else{
+            CutterIndex = (dis2 < dis3) ? 1 : 2;
+        }
+
+        if(pos.z < Min_Z){
+            gl_Position = pos;
+            tes_out.normal = normalize(hs_in[0].normal) * 10.0f;
+            return;
+        }
+        isVertical = true;
+    }
+    //当为垂直面片时，其法向量的长度为3.0
+    if((length(hs_in[0].normal) > 2.5) || isVertical){
+        float dis1 = distance(pos.xy, c(0).xy);
+        float dis2 = distance(pos.xy, c(1).xy);
+        float dis3 = distance(pos.xy, c(2).xy);
+        int CutterIndex = 0;
+        if(c(0).z < c(1).z){
+            CutterIndex = (c(0).z < c(2).z) ? 0 : 2;
+        }else{
+            CutterIndex = (c(1).z < c(2).z) ? 1 : 2;
+        }
+
+        if((dis1 > CutterR) && (dis2 > CutterR) && (dis3 > CutterR)){
+            pos.z = Max_Z;
+        }
+
+        gl_Position = pos;
+        pos.xy = c(CutterIndex).xy + normalize(pos.xy - c(CutterIndex).xy) * CutterR;
+        tes_out.normal.xy = normalize(pos.xy - c(CutterIndex).xy);
+        tes_out.normal.z = 0;
+        tes_out.normal =  normalize(tes_out.normal) * 5.0f;
+        return;
+
+    }
+
+
+    //将计算结果传递给下一个着色器
+    gl_Position = pos;
+    tes_out.normal = hs_in[0].normal;
+}
+/*
+
+*/

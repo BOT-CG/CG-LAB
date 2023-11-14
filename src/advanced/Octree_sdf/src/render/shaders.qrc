@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>shaders/Autodiff.vert</file>
+        <file>shaders/Autodiff.frag</file>
+        <file>shaders/Axis.vert</file>
+        <file>shaders/Axis.geom</file>
+        <file>shaders/Axis.frag</file>
+        <file>shaders/Cutter.vert</file>
+        <file>shaders/Cutter.frag</file>
+        <file>shaders/WorkpieceSurface.vert</file>
+        <file>shaders/WorkpieceSurface.frag</file>
+        <file>shaders/WorkpieceSurfaceUsingDistance.vert</file>
+        <file>shaders/WorkpieceSurfaceUsingDistance.geom</file>
+        <file>shaders/WorkpieceSurfaceUsingDistance.frag</file>
+        <file>shaders/WorkpieceWireframe.vert</file>
+        <file>shaders/WorkpieceWireframe.geom</file>
+        <file>shaders/WorkpieceWireframe.frag</file>
+    </qresource>
+</RCC>

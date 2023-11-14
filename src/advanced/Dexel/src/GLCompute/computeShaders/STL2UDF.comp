@@ -1,0 +1,65 @@
+#version 430
+
+layout(local_size_x = 1024, local_size_y = 1, local_size_z = 1) in;
+
+layout(std430, binding = 0) buffer BufferTriangleVertices
+{
+    float triangleVertices[];
+};
+
+layout(std430, binding = 1) buffer BufferInput
+{
+    vec4 pointsAndDistances[];
+};
+
+shared float minDistance;
+shared float distances[1024];
+
+float dot2(in vec3 v) { return dot(v, v); }
+
+float udTriangle(in vec3 v1, in vec3 v2, in vec3 v3, in vec3 p)
+{
+    // prepare data
+    vec3 v21 = v2 - v1;
+    vec3 p1 = p - v1;
+    vec3 v32 = v3 - v2;
+    vec3 p2 = p - v2;
+    vec3 v13 = v1 - v3;
+    vec3 p3 = p - v3;
+    vec3 nor = cross(v21, v13);
+
+    return sqrt( // inside/outside test
+        (sign(dot(cross(v21, nor), p1)) + sign(dot(cross(v32, nor), p2)) + sign(dot(cross(v13, nor), p3)) < 2.0)
+            ?
+            // 3 edges
+            min(min(
+                    dot2(v21 * clamp(dot(v21, p1) / dot2(v21), 0.0, 1.0) - p1),
+                    dot2(v32 * clamp(dot(v32, p2) / dot2(v32), 0.0, 1.0) - p2)),
+                dot2(v13 * clamp(dot(v13, p3) / dot2(v13), 0.0, 1.0) - p3))
+            :
+            // 1 face
+            dot(nor, p1) * dot(nor, p1) / dot2(nor));
+}
+
+void main()
+{
+    distances[gl_LocalInvocationIndex] = 1.0f / 0.0f; // infinity
+    uint wgIndex = gl_WorkGroupID.x
+        + gl_WorkGroupID.y * gl_NumWorkGroups.x
+        + gl_WorkGroupID.z * gl_NumWorkGroups.x * gl_NumWorkGroups.y;
+    vec3 p = pointsAndDistances[wgIndex].xyz;
+    for (uint i = gl_LocalInvocationIndex * 9; i + 8 < triangleVertices.length(); i += gl_WorkGroupSize.x * 9) {
+        vec3 v1 = vec3(triangleVertices[i], triangleVertices[i + 1], triangleVertices[i + 2]);
+        vec3 v2 = vec3(triangleVertices[i + 3], triangleVertices[i + 4], triangleVertices[i + 5]);
+        vec3 v3 = vec3(triangleVertices[i + 6], triangleVertices[i + 7], triangleVertices[i + 8]);
+        distances[gl_LocalInvocationIndex] = min(distances[gl_LocalInvocationIndex], udTriangle(v1, v2, v3, p));
+    }
+    barrier();
+    if (gl_LocalInvocationIndex == 0) {
+        minDistance = 1.0f / 0.0f;
+        for (uint j = 0; j < gl_WorkGroupSize.x; j++) {
+            minDistance = min(minDistance, distances[j]);
+        }
+        pointsAndDistances[wgIndex].w = minDistance;
+    }
+}

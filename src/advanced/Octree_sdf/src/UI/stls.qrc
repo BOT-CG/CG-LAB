@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>stls/BDD-blank.stl</file>
+        <file>stls/vase-blank.stl</file>
+    </qresource>
+</RCC>

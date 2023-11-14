@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/application-brackets.svg</file>
+        <file>icons/box-cutter-off.svg</file>
+        <file>icons/box-cutter.svg</file>
+        <file>icons/chart-bell-curve.svg</file>
+        <file>icons/cube-off-outline.svg</file>
+        <file>icons/cube-off.svg</file>
+        <file>icons/cube-outline.svg</file>
+        <file>icons/cube.svg</file>
+        <file>icons/file-multiple.svg</file>
+        <file>icons/pencil.svg</file>
+        <file>icons/pause-circle.svg</file>
+        <file>icons/play-circle.svg</file>
+        <file>icons/pyramid.svg</file>
+        <file>icons/road-variant.svg</file>
+        <file>icons/road.svg</file>
+        <file>icons/skip-previous-circle.svg</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/APT_cutter.png</file>
+    </qresource>
+</RCC>
